@@ -3,12 +3,30 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import PaymentPage from './components/PaymentPage'
+import { Route, Routes, useNavigate } from 'react-router'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate()
+
+  const goToPay = () => navigate('/pay?amount=5000&email=olomufeh@gmail.com')
 
   return (
-    <PaymentPage />
+    <Routes>
+      <Route 
+        path='*'
+        element={
+          <button onClick={goToPay}>
+            Pay
+          </button>
+        }
+      />      
+      <Route 
+        path='/pay'
+        element={
+          <PaymentPage />
+        }
+      />
+    </Routes>
   )
 }
 

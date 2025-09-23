@@ -17,7 +17,7 @@ export default function PaymentPage() {
 
         if (!amount || !email) {
             alert("Missing payment details");
-            navigate(-1)
+            // navigate(-1)
             return;
         }
 
