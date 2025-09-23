@@ -12,8 +12,8 @@ export default function PaymentPage() {
     const [reference, setReference] = useState('')
 
     useEffect(() => {
-        const amount = searchParams.get("amount") || 5000
-        const email = searchParams.get("email") || 'olomufeh@gmail.com'
+        const amount = searchParams.get("amount")
+        const email = searchParams.get("email")
 
         if (!amount || !email) {
             alert("Missing payment details");
