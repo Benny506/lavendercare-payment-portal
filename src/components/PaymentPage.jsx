@@ -20,6 +20,7 @@ export default function PaymentPage() {
         const user_id = searchParams.get("user_id")
         const provider_id = searchParams.get("provider_id")
         const payment_for = searchParams.get("payment_for")
+        const service_id = searchParams.get("service_id") || null
 
         if (!amount || !email) {
             alert("Missing payment details");
@@ -50,7 +51,8 @@ export default function PaymentPage() {
                         ref, 
                         sender_id,
                         receiver_id,
-                        payment_for
+                        payment_for,
+                        service_id
                     }
 
                     await requestApi({
