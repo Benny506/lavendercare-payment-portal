@@ -31,7 +31,8 @@ export default function PaymentPage() {
         const paystack = new PaystackPop();
 
         paystack.newTransaction({
-            key: "pk_live_32b49947478d77ede1cadf2f6a4698d19812f90f", // 🔑 replace with your public key
+            key: "pk_test_77b7c00c5d7243d94da713ca2c6815eae23f99a5", // 🔑 replace with your public key
+            // key: "pk_live_32b49947478d77ede1cadf2f6a4698d19812f90f", // 🔑 replace with your public key
             email,
             amount: amount * 100, // 💵 amount in kobo (500000 = ₦5000)
             currency: "NGN",
