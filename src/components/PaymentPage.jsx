@@ -35,7 +35,7 @@ export default function PaymentPage() {
             email,
             amount: amount * 100, // 💵 amount in kobo (500000 = ₦5000)
             currency: "NGN",
-            reference: user_id && provider_id ? `${Date.now()}-user-${user_id}-provider-${provider_id}` : `${"" + Math.floor(Math.random() * 1000000000 + 1)}`, // unique ref
+            reference: (purchase_id && payment_for) ? `${Date.now()}-${payment_for}-${purchase_id}` : `${"" + Math.floor(Math.random() * 1000000000 + 1)}`, // unique ref
             onSuccess: async (transaction) => {
                 // console.log("✅ Payment success:", transaction);
                 // window.location.href = `myapp://payment-success?reference=${transaction.reference}`;
