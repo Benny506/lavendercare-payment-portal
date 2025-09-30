@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import PaymentPage from './components/PaymentPage'
 import { Route, Routes, useNavigate } from 'react-router'
+import PaymentSuccess from './components/PaymentSuccess'
+import PaymentFailure from './components/PaymentFailure'
 
 function App() {
   const navigate = useNavigate()
@@ -26,6 +28,20 @@ function App() {
           <PaymentPage />
         }
       />
+
+      <Route 
+        path='/payment-success'
+        element={
+          <PaymentSuccess />
+        }
+      />  
+
+      <Route 
+        path='/payment-failure'
+        element={
+          <PaymentFailure />
+        }
+      />            
     </Routes>
   )
 }

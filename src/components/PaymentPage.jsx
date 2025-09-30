@@ -14,10 +14,11 @@ export default function PaymentPage() {
     useEffect(() => {
         const amount = searchParams.get("amount")
         const email = searchParams.get("email")
+        const booking_id = searchParams.get("booking_id")
 
         if (!amount || !email) {
             alert("Missing payment details");
-            // navigate(-1)
+            navigate(-1)
             return;
         }
 
@@ -28,18 +29,17 @@ export default function PaymentPage() {
             email,
             amount: amount * 100, // 💵 amount in kobo (500000 = ₦5000)
             currency: "NGN",
-            reference: "" + Math.floor(Math.random() * 1000000000 + 1), // unique ref
+            reference: `${Date.now()}-${booking_id}` || `${"" + Math.floor(Math.random() * 1000000000 + 1)}`, // unique ref
             onSuccess: (transaction) => {
-                console.log("✅ Payment success:", transaction);
+                // console.log("✅ Payment success:", transaction);
                 // window.location.href = `myapp://payment-success?reference=${transaction.reference}`;
 
                 setReference(transaction?.reference)
+                navigate("/payment-success", { replace: true })
             },
             onCancel: () => {
-                alert("Payment cancelled or failed")
-                navigate(-1)
                 // Optionally redirect somewhere else
-                window.location.href = "/cancelled";
+                navigate("/payment-failure", { replace: true })
             },
         });
     }, []);
@@ -49,13 +49,13 @@ export default function PaymentPage() {
             <h2>Redirecting to payment...</h2>
             <p>Please wait while we process your transaction.</p>
 
-            {
+            {/* {
                 reference
                 &&
                     <ReferenceBox 
                         reference={reference}
                     />
-            }
+            } */}
         </div>
     );
 }
