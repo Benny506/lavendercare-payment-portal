@@ -10,7 +10,7 @@ import PaymentFailure from './components/PaymentFailure'
 function App() {
   const navigate = useNavigate()
 
-  const goToPay = () => navigate('/pay?amount=5000&email=olomufeh@gmail.com')
+  const goToPay = () => navigate('/pay?amount=5000&email=dummy@gmail.com&user_id=dummyUser&provider_id=dummyProvider&payment_for=dummyReason')
 
   return (
     <Routes>

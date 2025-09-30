@@ -2,16 +2,8 @@ import React, { useEffect, useState } from "react";
 import PaystackPop from "@paystack/inline-js";
 import { useNavigate, useSearchParams } from "react-router";
 import ReferenceBox from "./ReferenceBox";
-import { createClient } from '@supabase/supabase-js'
 import AppLoading from "./appLoading/AppLoading";
-
-export const SUPABASE_URL = 'https://tzsbbbxpdlupybfrgdbs.supabase.co'
-export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6c2JiYnhwZGx1cHliZnJnZGJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5NzU0MTEsImV4cCI6MjA2NzU1MTQxMX0.3MPot37N05kaUG8W84JItSKgH2bymVBee1MxJ905XEk'
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    realtime: { params: { eventsPerSecond: 10 } },
-    debug: true // This will print realtime connection logs
-})
+import { requestApi } from "./apiReqs/requestApi";
 
 export default function PaymentPage() {
 
@@ -27,7 +19,7 @@ export default function PaymentPage() {
         const email = searchParams.get("email")
         const user_id = searchParams.get("user_id")
         const provider_id = searchParams.get("provider_id")
-        const payment_for = searchParams.get('payment_for')
+        const payment_for = searchParams.get("payment_for")
 
         if (!amount || !email) {
             alert("Missing payment details");
@@ -61,9 +53,11 @@ export default function PaymentPage() {
                         payment_for
                     }
 
-                    const { data, error } = await supabase
-                        .from("transactions")
-                        .insert(requestInfo)
+                    await requestApi({
+                        url: 'https://tzsbbbxpdlupybfrgdbs.supabase.co/functions/v1/insert-transaction',
+                        method: 'POST',
+                        data: requestInfo
+                    })
                     
                     setIsLoading(false)
                 }
@@ -78,13 +72,21 @@ export default function PaymentPage() {
         });
     }, []);
 
+    // if(isLoading){
+    //     return (
+    //         <div style={{
+    //             width: '100vw', height:"100vh",
+    //         }} className="flex items-center justify-center">
+    //             <AppLoading tempLoading={isLoading} />
+    //         </div>
+    //     )
+    // }
+
     return (
-        <div style={{ textAlign: "center", marginTop: "100px" }}>
-            
-            <AppLoading tempLoading={isLoading} />
+        <div style={{ textAlign: "center", marginTop: "100px" }}>        
 
             <h2>Redirecting...</h2>
-            <p>Please wait while we process your transaction.</p>
+            <p>Please wait while we process your transaction...</p>
 
             {/* {
                 reference
