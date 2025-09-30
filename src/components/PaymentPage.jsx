@@ -17,8 +17,8 @@ export default function PaymentPage() {
     useEffect(() => {
         const amount = searchParams.get("amount")
         const email = searchParams.get("email")
-        const user_id = searchParams.get("user_id")
-        const provider_id = searchParams.get("provider_id")
+        const sender_id = searchParams.get("sender_id")
+        const receiver_id = searchParams.get("receiver_id")
         const payment_for = searchParams.get("payment_for")
         const purchase_id = searchParams.get("purchase_id") || null
 
@@ -41,8 +41,6 @@ export default function PaymentPage() {
                 // window.location.href = `myapp://payment-success?reference=${transaction.reference}`;
 
                 const ref = transaction?.reference
-                const sender_id = user_id
-                const receiver_id = provider_id
 
                 if(ref && sender_id && receiver_id && payment_for){
                     setIsLoading(true)
