@@ -20,7 +20,7 @@ export default function PaymentPage() {
     const [searchParams] = useSearchParams();
 
     const [reference, setReference] = useState('')
-    const [tempLoading, setTempLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const amount = searchParams.get("amount")
@@ -52,6 +52,8 @@ export default function PaymentPage() {
                 const receiver_id = provider_id
 
                 if(ref && sender_id && receiver_id && payment_for){
+                    setIsLoading(true)
+
                     const requestInfo = {
                         ref, 
                         sender_id,
@@ -62,6 +64,8 @@ export default function PaymentPage() {
                     const { data, error } = await supabase
                         .from("transactions")
                         .insert(requestInfo)
+                    
+                    setIsLoading(false)
                 }
 
                 setReference(ref)
