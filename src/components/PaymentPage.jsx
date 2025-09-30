@@ -14,7 +14,8 @@ export default function PaymentPage() {
     useEffect(() => {
         const amount = searchParams.get("amount")
         const email = searchParams.get("email")
-        const booking_id = searchParams.get("booking_id")
+        const user_id = searchParams.get("user_id")
+        const provider_id = searchParams.get("provider_id")
 
         if (!amount || !email) {
             alert("Missing payment details");
@@ -29,7 +30,7 @@ export default function PaymentPage() {
             email,
             amount: amount * 100, // 💵 amount in kobo (500000 = ₦5000)
             currency: "NGN",
-            reference: `${Date.now()}-${booking_id}` || `${"" + Math.floor(Math.random() * 1000000000 + 1)}`, // unique ref
+            reference: user_id && provider_id ? `${Date.now()}-user-${user_id}-provider-${provider_id}` : `${"" + Math.floor(Math.random() * 1000000000 + 1)}`, // unique ref
             onSuccess: (transaction) => {
                 // console.log("✅ Payment success:", transaction);
                 // window.location.href = `myapp://payment-success?reference=${transaction.reference}`;
