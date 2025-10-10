@@ -20,7 +20,7 @@ export default function PaymentPage() {
         const sender_id = searchParams.get("sender_id")
         const receiver_id = searchParams.get("receiver_id")
         const payment_for = searchParams.get("payment_for")
-        const purchase_id = searchParams.get("purchase_id") || null
+        const purchase_id = searchParams.get("purchase_id")
 
         if (!amount || !email) {
             alert("Missing payment details");
@@ -31,12 +31,12 @@ export default function PaymentPage() {
         const paystack = new PaystackPop();
 
         paystack.newTransaction({
-            key: "pk_test_77b7c00c5d7243d94da713ca2c6815eae23f99a5", // 🔑 replace with your public key
-            // key: "pk_live_32b49947478d77ede1cadf2f6a4698d19812f90f", // 🔑 replace with your public key
+            // key: "pk_test_77b7c00c5d7243d94da713ca2c6815eae23f99a5", // 🔑 test
+            key: "pk_live_32b49947478d77ede1cadf2f6a4698d19812f90f", // 🔑 live
             email,
             amount: amount * 100, // 💵 amount in kobo (500000 = ₦5000)
             currency: "NGN",
-            reference: (purchase_id && payment_for) ? `${Date.now()}-${payment_for}-${purchase_id}` : `${"" + Math.floor(Math.random() * 1000000000 + 1)}`, // unique ref
+            reference: (purchase_id && payment_for) ? `${Date.now()}-${payment_for}-${purchase_id}` : `${Date.now()}`, // unique ref
             onSuccess: async (transaction) => {
                 // console.log("✅ Payment success:", transaction);
                 // window.location.href = `myapp://payment-success?reference=${transaction.reference}`;
